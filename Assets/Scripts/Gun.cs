@@ -2,11 +2,22 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] float range = 10f;
-    [SerializeField] float damage = 100f;
+    [SerializeField] Transform muzzle;
+    [SerializeField] GameObject muzzleFlashEffect;
+    [SerializeField] GameObject hitEffect;
+    Animator animator;
 
-    public void Fire()
+    void Awake()
     {
+        animator = GetComponentInParent<Animator>();
+    }
+
+    public void Fire(float damage, float range)
+    {
+        Instantiate(muzzleFlashEffect, muzzle);
+
+        animator.Play("Gun Animation", 0, 0f);
+
         Vector3 cameraPosition = Camera.main.transform.position;
         Vector3 cameraForward = Camera.main.transform.forward;
         
@@ -18,6 +29,8 @@ public class Gun : MonoBehaviour
             {
                 health.TakeDamage(damage);
             }
+
+            Instantiate(hitEffect, hit.point, Quaternion.identity);
         }
     }
 }
