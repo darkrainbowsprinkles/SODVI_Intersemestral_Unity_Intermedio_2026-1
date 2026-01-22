@@ -8,11 +8,17 @@ public class GunSO : ScriptableObject
     [SerializeField] float range = 20f;
     [SerializeField] float cooldown = 0.5f;
     [SerializeField] bool isAutomatic = false;
+    [SerializeField] AmmoType ammoType;
 
     public Gun Spawn(Transform gunContainer)
     {
         Gun gunInstance = Instantiate(gunPrefab, gunContainer);
         return gunInstance;
+    }
+
+    public AmmoType GetAmmoType()
+    {
+        return ammoType;
     }
 
     public bool IsAutomatic()
