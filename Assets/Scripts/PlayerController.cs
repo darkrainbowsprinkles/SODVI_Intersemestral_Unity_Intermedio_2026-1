@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,14 @@ public class PlayerController : MonoBehaviour
     float timeSinceLastShot = Mathf.Infinity;
     Dictionary<AmmoType, int> ammoLookup;
 
+    public event Action OnAmmoAdjusted;
+    public event Action OnGunEquipped;
+
+    public GunSO GetCurrentGun()
+    {
+        return currentGunSO;
+    }
+
     public void EquipGun(GunSO gunSO)
     {
         if (currentGun != null)
@@ -25,6 +34,18 @@ public class PlayerController : MonoBehaviour
 
         currentGunSO = gunSO;
         currentGun = gunSO.Spawn(gunContainer);
+        OnGunEquipped?.Invoke();
+    }
+
+    public void AdjustAmmo(AmmoType ammoType, int number)
+    {
+        ammoLookup[ammoType] += number;
+        OnAmmoAdjusted?.Invoke();
+    }
+
+    public int GetAmmo(AmmoType ammoType)
+    {
+        return ammoLookup[ammoType];
     }
 
     [System.Serializable]
@@ -38,14 +59,14 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
+        CreateAmmoLookup();
+        EquipGun(defaultGunSO);
     }
 
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-        EquipGun(defaultGunSO);
-        CreateAmmoLookup();
     }
 
     void CreateAmmoLookup()
@@ -103,16 +124,6 @@ public class PlayerController : MonoBehaviour
         {
             Shoot();
         }
-    }
-
-    int GetAmmo(AmmoType ammoType)
-    {
-        return ammoLookup[ammoType];
-    }
-
-    void AdjustAmmo(AmmoType ammoType, int number)
-    {
-        ammoLookup[ammoType] += number;
     }
 
     void Shoot()

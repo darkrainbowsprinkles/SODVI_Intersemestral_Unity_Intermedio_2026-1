@@ -16,4 +16,5 @@ MonoBehaviour:
   damage: 10
   range: 20
   cooldown: 0.5
-  isAutomatic: 1
+  isAutomatic: 0
+  ammoType: 0
