@@ -49,6 +49,9 @@ MonoBehaviour:
   muzzle: {fileID: 6181047046417288825}
   muzzleFlashEffect: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf, type: 3}
   hitEffect: {fileID: 8051778499957098049, guid: 0c769bb3ec683374fa5f0b109a5a2a6d, type: 3}
+  hitLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
 --- !u!1 &3591593563785550319
 GameObject:
   m_ObjectHideFlags: 0

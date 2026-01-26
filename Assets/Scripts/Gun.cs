@@ -5,6 +5,7 @@ public class Gun : MonoBehaviour
     [SerializeField] Transform muzzle;
     [SerializeField] GameObject muzzleFlashEffect;
     [SerializeField] GameObject hitEffect;
+    [SerializeField] LayerMask hitLayers;
     Animator animator;
 
     void Awake()
@@ -21,7 +22,7 @@ public class Gun : MonoBehaviour
         Vector3 cameraPosition = Camera.main.transform.position;
         Vector3 cameraForward = Camera.main.transform.forward;
         
-        if (Physics.Raycast(cameraPosition, cameraForward, out RaycastHit hit, range))
+        if (Physics.Raycast(cameraPosition, cameraForward, out RaycastHit hit, range, hitLayers, QueryTriggerInteraction.Ignore))
         {
             Health health = hit.transform.GetComponent<Health>();
 

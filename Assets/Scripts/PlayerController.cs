@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,17 +11,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform gunContainer;
     [SerializeField] GunSO defaultGunSO;
     [SerializeField] AmmoSlot[] ammoSlots;
+    [SerializeField] CinemachineCamera firstPersonCamera;
     PlayerInput playerInput;
     CharacterController controller;
     Gun currentGun;
     GunSO currentGunSO;
+    float defaultFieldOfView;
     float timeSinceLastShot = Mathf.Infinity;
+    bool isZooming = false;
     Dictionary<AmmoType, int> ammoLookup;
 
     public event Action OnAmmoAdjusted;
     public event Action OnGunEquipped;
 
     public GunSO GetCurrentGun()
+    {
+        return currentGunSO;
+    }
+
+    public bool IsZooming()
+    {
+        return isZooming;
+    }
+
+    public GunSO GetCurrentGunSO()
     {
         return currentGunSO;
     }
@@ -61,6 +75,7 @@ public class PlayerController : MonoBehaviour
         controller = GetComponent<CharacterController>();
         CreateAmmoLookup();
         EquipGun(defaultGunSO);
+        defaultFieldOfView = firstPersonCamera.Lens.FieldOfView;
     }
 
     void Start()
@@ -84,6 +99,23 @@ public class PlayerController : MonoBehaviour
         timeSinceLastShot += Time.deltaTime;
         HandleMovement();
         HandleFiring();
+        HandleZoom();
+    }
+
+    void HandleZoom()
+    {
+        InputAction zoomAction = playerInput.actions["Zoom"];
+
+        if (currentGunSO.CanZoom() && zoomAction.IsPressed())
+        {
+            firstPersonCamera.Lens.FieldOfView = currentGunSO.GetZoomAmount();
+            isZooming = true;
+        }
+        else
+        {
+            firstPersonCamera.Lens.FieldOfView = defaultFieldOfView;
+            isZooming = false;
+        }
     }
 
     void HandleMovement()
