@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] float movementSpeed = 3f;
     [SerializeField] float sprintMultiplier = 2f;
+    [SerializeField] float jumpForce = 3f;
     [SerializeField] Transform gunContainer;
     [SerializeField] GunSO defaultGunSO;
     [SerializeField] AmmoSlot[] ammoSlots;
@@ -16,6 +17,7 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     Gun currentGun;
     GunSO currentGunSO;
+    float verticalVelocity;
     float defaultFieldOfView;
     float timeSinceLastShot = Mathf.Infinity;
     bool isZooming = false;
@@ -97,9 +99,23 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         timeSinceLastShot += Time.deltaTime;
+        CalculateVerticalVelocity();
         HandleMovement();
+        HandleJumping();
         HandleFiring();
         HandleZoom();
+    }
+
+    void CalculateVerticalVelocity()
+    {
+        if (controller.isGrounded && verticalVelocity < 0)
+        {
+            verticalVelocity = Physics.gravity.y * Time.deltaTime;
+        }
+        else
+        {
+            verticalVelocity += Physics.gravity.y * Time.deltaTime;
+        }
     }
 
     void HandleZoom()
@@ -128,8 +144,24 @@ public class PlayerController : MonoBehaviour
             speed = movementSpeed * sprintMultiplier;
         }
 
-        Vector3 movementValue = CalculateMovement();
-        controller.Move(movementValue * speed * Time.deltaTime);
+        Vector3 gravity = Vector3.up * verticalVelocity;
+        Vector3 movementMotion = CalculateMovement() * speed;
+        controller.Move((gravity + movementMotion) * Time.deltaTime);
+    }
+
+    void HandleJumping()
+    {
+        if (!controller.isGrounded)
+        {
+            return;
+        }
+
+        InputAction jumpAction = playerInput.actions["Jump"];
+
+        if (jumpAction.WasPressedThisFrame())
+        {
+            verticalVelocity += jumpForce;
+        }
     }
 
     void HandleFiring()
@@ -160,7 +192,7 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
-        currentGun.Fire(defaultGunSO.GetDamage(), defaultGunSO.GetRange());
+        currentGun.Fire(currentGunSO.GetDamage(), currentGunSO.GetRange());
         timeSinceLastShot = 0f;
         AdjustAmmo(currentGunSO.GetAmmoType(), -1);
         print(GetAmmo(currentGunSO.GetAmmoType()));
