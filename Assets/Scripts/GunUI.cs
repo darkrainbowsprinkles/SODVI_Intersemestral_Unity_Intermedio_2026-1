@@ -63,17 +63,17 @@ public class GunUI : MonoBehaviour
 
     void OnAmmoAdjusted()
     {
-        GunSO currentGun = playerController.GetCurrentGun();
-        int currentAmmo = playerController.GetAmmo(currentGun.GetAmmoType());
+        GunSO currentGunSO = playerController.GetCurrentGunSO();
+        int currentAmmo = playerController.GetAmmo(currentGunSO.GetAmmoType());
         ammoText.text = currentAmmo.ToString();
     }
 
     void OnGunEquipped()
     {
-        GunSO currentGun = playerController.GetCurrentGun();
-        gunIconImage.sprite = currentGun.GetGunIcon();
-        ammoIconImage.sprite = GetAmmoIcon(currentGun.GetAmmoType());
-        crosshairImage.texture = currentGun.GetCrosshair();
+        GunSO currentGunSO = playerController.GetCurrentGunSO();
+        gunIconImage.sprite = currentGunSO.GetGunIcon();
+        ammoIconImage.sprite = GetAmmoIcon(currentGunSO.GetAmmoType());
+        crosshairImage.texture = currentGunSO.GetCrosshair();
         OnAmmoAdjusted();
     }
 

@@ -16,6 +16,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Camera gunCamera;
     PlayerInput playerInput;
     CharacterController controller;
+    Health health;
     Gun currentGun;
     GunSO currentGunSO;
     float verticalVelocity;
@@ -27,7 +28,7 @@ public class PlayerController : MonoBehaviour
     public event Action OnAmmoAdjusted;
     public event Action OnGunEquipped;
 
-    public GunSO GetCurrentGun()
+    public GunSO GetCurrentGunSO()
     {
         return currentGunSO;
     }
@@ -35,11 +36,6 @@ public class PlayerController : MonoBehaviour
     public bool IsZooming()
     {
         return isZooming;
-    }
-
-    public GunSO GetCurrentGunSO()
-    {
-        return currentGunSO;
     }
 
     public void EquipGun(GunSO gunSO)
@@ -76,6 +72,7 @@ public class PlayerController : MonoBehaviour
     {
         playerInput = GetComponent<PlayerInput>();
         controller = GetComponent<CharacterController>();
+        health = GetComponent<Health>();
         CreateAmmoLookup();
         EquipGun(defaultGunSO);
         defaultFieldOfView = firstPersonCamera.Lens.FieldOfView;
@@ -99,6 +96,11 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        if (health.IsDead())
+        {
+            return;
+        }
+
         timeSinceLastShot += Time.deltaTime;
         CalculateVerticalVelocity();
         HandleMovement();
@@ -198,7 +200,6 @@ public class PlayerController : MonoBehaviour
         currentGun.Fire(currentGunSO.GetDamage(), currentGunSO.GetRange());
         timeSinceLastShot = 0f;
         AdjustAmmo(currentGunSO.GetAmmoType(), -1);
-        print(GetAmmo(currentGunSO.GetAmmoType()));
     }
 
     Vector3 CalculateMovement()

@@ -1,15 +1,21 @@
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 200f;
+    [SerializeField] UnityEvent onDie;
     Animator animator;
     float currentHealth = 0f;
 
     public float GetHealthPercentage()
     {
         return currentHealth / maxHealth;
+    }
+
+    public bool IsDead()
+    {
+        return currentHealth == 0;
     }
 
     public void TakeDamage(float damage)
@@ -23,20 +29,20 @@ public class Health : MonoBehaviour
 
         if (currentHealth == 0)
         {
-            if (animator != null)
-            {
-                animator.SetTrigger("die");
-            }
-
-            GetComponent<Collider>().enabled = false;
+            HandleDeath();
         }
-
-        print(currentHealth);
     }
 
-    public bool IsDead()
+    void HandleDeath()
     {
-        return currentHealth == 0;
+        if (animator != null)
+        {
+            animator.SetTrigger("die");
+        }
+
+        GetComponent<Collider>().enabled = false;
+
+        onDie?.Invoke();
     }
 
     void Awake()
