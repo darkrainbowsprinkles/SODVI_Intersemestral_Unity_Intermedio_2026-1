@@ -116,8 +116,6 @@ MonoBehaviour:
     ammoAmount: 30
   - ammoType: 2
     ammoAmount: 10
-  - ammoType: 3
-    ammoAmount: 1
   firstPersonCamera: {fileID: 0}
   gunCamera: {fileID: 0}
 --- !u!114 &3566640132112944225

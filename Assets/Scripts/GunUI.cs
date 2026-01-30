@@ -42,6 +42,8 @@ public class GunUI : MonoBehaviour
 
         if (currentGunSO.GetScope() == null)
         {
+            scopeImage.enabled = false;
+            crosshairImage.enabled = true;
             return;
         }
 

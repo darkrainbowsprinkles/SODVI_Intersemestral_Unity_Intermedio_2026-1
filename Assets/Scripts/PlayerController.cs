@@ -18,7 +18,8 @@ public class PlayerController : MonoBehaviour
     CharacterController controller;
     Health health;
     Gun currentGun;
-    GunSO currentGunSO;
+    int currentGunIndex;
+    List<GunSO> gunSOInventory = new();
     float verticalVelocity;
     float defaultFieldOfView;
     float timeSinceLastShot = Mathf.Infinity;
@@ -30,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     public GunSO GetCurrentGunSO()
     {
-        return currentGunSO;
+        return gunSOInventory[currentGunIndex];
     }
 
     public bool IsZooming()
@@ -45,8 +46,9 @@ public class PlayerController : MonoBehaviour
             Destroy(currentGun.gameObject);
         }
 
-        currentGunSO = gunSO;
-        currentGun = gunSO.Spawn(gunContainer);
+        gunSOInventory.Add(gunSO);
+        currentGunIndex = gunSOInventory.Count - 1;
+        currentGun = gunSOInventory[currentGunIndex].Spawn(gunContainer);
         OnGunEquipped?.Invoke();
     }
 
@@ -78,20 +80,20 @@ public class PlayerController : MonoBehaviour
         defaultFieldOfView = firstPersonCamera.Lens.FieldOfView;
     }
 
+    void OnEnable()
+    {
+        playerInput.actions["Scroll Gun"].performed += ScrollGun;
+    }
+
+    void OnDisable()
+    {
+        playerInput.actions["Scroll Gun"].performed -= ScrollGun;
+    }
+
     void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-    }
-
-    void CreateAmmoLookup()
-    {
-        ammoLookup = new Dictionary<AmmoType, int>();
-
-        foreach (AmmoSlot slot in ammoSlots)
-        {
-            ammoLookup[slot.ammoType] = slot.ammoAmount;
-        }
     }
 
     void Update()
@@ -109,6 +111,40 @@ public class PlayerController : MonoBehaviour
         HandleZoom();
     }
 
+    void ScrollGun(InputAction.CallbackContext context)
+    {
+        if (gunSOInventory == null || gunSOInventory.Count == 0) return;
+
+        float scrollValue = context.ReadValue<float>();
+
+        if (scrollValue > 0f)
+        {
+            currentGunIndex = (currentGunIndex + 1) % gunSOInventory.Count;
+        }
+        else if (scrollValue < 0f)
+        {
+            currentGunIndex = (currentGunIndex - 1 + gunSOInventory.Count) % gunSOInventory.Count;
+        }
+
+        if (currentGun != null)
+        {
+            Destroy(currentGun.gameObject);
+        }
+
+        currentGun = gunSOInventory[currentGunIndex].Spawn(gunContainer);
+        OnGunEquipped?.Invoke();
+    }
+
+    void CreateAmmoLookup()
+    {
+        ammoLookup = new Dictionary<AmmoType, int>();
+
+        foreach (AmmoSlot slot in ammoSlots)
+        {
+            ammoLookup[slot.ammoType] = slot.ammoAmount;
+        }
+    }
+
     void CalculateVerticalVelocity()
     {
         if (controller.isGrounded && verticalVelocity < 0)
@@ -124,6 +160,7 @@ public class PlayerController : MonoBehaviour
     void HandleZoom()
     {
         InputAction zoomAction = playerInput.actions["Zoom"];
+        GunSO currentGunSO = GetCurrentGunSO();
 
         if (currentGunSO.CanZoom() && zoomAction.IsPressed())
         {
@@ -171,6 +208,8 @@ public class PlayerController : MonoBehaviour
 
     void HandleFiring()
     {
+        GunSO currentGunSO = GetCurrentGunSO();
+
         if (timeSinceLastShot < currentGunSO.GetCooldown())
         {
             return;
@@ -197,6 +236,7 @@ public class PlayerController : MonoBehaviour
 
     void Shoot()
     {
+        GunSO currentGunSO = GetCurrentGunSO();
         currentGun.Fire(currentGunSO.GetDamage(), currentGunSO.GetRange());
         timeSinceLastShot = 0f;
         AdjustAmmo(currentGunSO.GetAmmoType(), -1);

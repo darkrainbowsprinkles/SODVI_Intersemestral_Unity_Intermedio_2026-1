@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 200f;
-    [SerializeField] UnityEvent onDie;
+    public UnityEvent onDie;
     Animator animator;
     float currentHealth = 0f;
 
