@@ -3,6 +3,7 @@ using UnityEngine;
 public abstract class Pickup : MonoBehaviour
 {
     [SerializeField] float rotationSpeed = 100f;
+    [SerializeField] bool destroy = true;
 
     void Update()
     {
@@ -14,6 +15,11 @@ public abstract class Pickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             OnPickup(other.gameObject);
+
+            if (destroy)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
