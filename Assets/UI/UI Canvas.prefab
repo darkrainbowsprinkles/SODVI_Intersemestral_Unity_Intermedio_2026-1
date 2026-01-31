@@ -777,6 +777,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
   pauseTimeScale: 0.2
+  interactionDelay: 0.8
   restartButton: {fileID: 928940941199555197}
   quitButton: {fileID: 5488610837245471938}
 --- !u!1 &5345644096193296207
@@ -1595,5 +1596,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameOverUI
   pauseTimeScale: 0.2
+  interactionDelay: 0.8
   restartButton: {fileID: 6748385683647145299}
   quitButton: {fileID: 7465577841779021404}

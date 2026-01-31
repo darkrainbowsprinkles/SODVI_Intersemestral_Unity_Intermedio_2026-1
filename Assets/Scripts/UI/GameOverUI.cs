@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -7,12 +8,14 @@ namespace FPS.UI
     public class GameOverUI : MonoBehaviour
     {
         [SerializeField] float pauseTimeScale = 0.2f;
+        [SerializeField] float interactionDelay = 1f;
         [SerializeField] Button restartButton;
         [SerializeField] Button quitButton;
 
         void OnEnable()
         {
             SetGameActive(false);
+            StartCoroutine(SetInteractionRoutine());
             restartButton.onClick.AddListener(ReloadScene);
             quitButton.onClick.AddListener(QuitGame);
         }
@@ -22,6 +25,19 @@ namespace FPS.UI
             SetGameActive(true);
             restartButton.onClick.RemoveListener(ReloadScene);
             quitButton.onClick.RemoveListener(QuitGame);
+        }
+
+        IEnumerator SetInteractionRoutine()
+        {
+            SetInteraction(false);
+            yield return new WaitForSeconds(interactionDelay);
+            SetInteraction(true);
+        }
+
+        void SetInteraction(bool state)
+        {
+            restartButton.gameObject.SetActive(state);
+            quitButton.gameObject.SetActive(state);
         }
 
         void SetGameActive(bool active)

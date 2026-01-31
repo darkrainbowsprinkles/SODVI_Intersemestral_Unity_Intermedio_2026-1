@@ -145,9 +145,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4842751865745100095}
     m_Modifications:
+    - target: {fileID: 1089812501607129200, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3852799265655734254, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: m_Name
       value: SM_M16A1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3852799265655734254, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6456741237754558206, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6613306538204665193, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7249113443657463342, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8005316354712685914, guid: 6c7859e017cea78489d643b95bb38ec3, type: 3}
       propertyPath: m_LocalScale.x

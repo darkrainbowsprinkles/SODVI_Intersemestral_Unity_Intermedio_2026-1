@@ -9,7 +9,6 @@ namespace FPS.Core
         [SerializeField] float maxHealth = 200f;
         [SerializeField] UnityEvent onDamageTaken;
         public UnityEvent onDie;
-        Animator animator;
         float currentHealth = 0f;
 
         public float GetHealthPercentage()
@@ -40,24 +39,19 @@ namespace FPS.Core
 
         void HandleDeath()
         {
-            if (animator != null)
+            if (TryGetComponent(out Animator animator))
             {
                 animator.SetTrigger("die");
             }
 
             if (TryGetComponent(out NavMeshAgent agent))
             {
-                agent.isStopped = true;
+                agent.enabled = false;
             }
 
             GetComponent<Collider>().enabled = false;
 
             onDie?.Invoke();
-        }
-
-        void Awake()
-        {
-            animator = GetComponent<Animator>();
         }
 
         void Start()
