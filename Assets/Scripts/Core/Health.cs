@@ -2,64 +2,67 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.Events;
 
-public class Health : MonoBehaviour
+namespace FPS.Core
 {
-    [SerializeField] float maxHealth = 200f;
-    [SerializeField] UnityEvent onDamageTaken;
-    public UnityEvent onDie;
-    Animator animator;
-    float currentHealth = 0f;
-
-    public float GetHealthPercentage()
+    public class Health : MonoBehaviour
     {
-        return currentHealth / maxHealth;
-    }
+        [SerializeField] float maxHealth = 200f;
+        [SerializeField] UnityEvent onDamageTaken;
+        public UnityEvent onDie;
+        Animator animator;
+        float currentHealth = 0f;
 
-    public bool IsDead()
-    {
-        return currentHealth == 0;
-    }
-
-    public void TakeDamage(float damage)
-    {
-        if (IsDead())
+        public float GetHealthPercentage()
         {
-            return;
+            return currentHealth / maxHealth;
         }
 
-        currentHealth = Mathf.Max(0f, currentHealth - damage);
-        onDamageTaken?.Invoke();
-
-        if (currentHealth == 0)
+        public bool IsDead()
         {
-            HandleDeath();
-        }
-    }
-
-    void HandleDeath()
-    {
-        if (animator != null)
-        {
-            animator.SetTrigger("die");
+            return currentHealth == 0;
         }
 
-        if (TryGetComponent(out NavMeshAgent agent))
+        public void TakeDamage(float damage)
         {
-            agent.isStopped = true;
+            if (IsDead())
+            {
+                return;
+            }
+
+            currentHealth = Mathf.Max(0f, currentHealth - damage);
+            onDamageTaken?.Invoke();
+
+            if (currentHealth == 0)
+            {
+                HandleDeath();
+            }
         }
 
-        GetComponent<Collider>().enabled = false;
+        void HandleDeath()
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("die");
+            }
 
-        onDie?.Invoke();
-    }
+            if (TryGetComponent(out NavMeshAgent agent))
+            {
+                agent.isStopped = true;
+            }
 
-    void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
+            GetComponent<Collider>().enabled = false;
 
-    void Start()
-    {
-        currentHealth = maxHealth;
+            onDie?.Invoke();
+        }
+
+        void Awake()
+        {
+            animator = GetComponent<Animator>();
+        }
+
+        void Start()
+        {
+            currentHealth = maxHealth;
+        }
     }
 }

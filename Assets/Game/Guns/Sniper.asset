@@ -18,7 +18,7 @@ MonoBehaviour:
   scope: {fileID: 2800000, guid: 80b15569cc0cf204485ddfa19053880c, type: 3}
   gunPrefab: {fileID: 6733240888885084332, guid: a3e9a198279f7a24cbce78646533e41f, type: 3}
   damage: 100
-  range: 100
+  range: 50
   cooldown: 2
   isAutomatic: 0
   canZoom: 1

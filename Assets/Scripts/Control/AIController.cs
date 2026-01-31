@@ -1,5 +1,7 @@
+using FPS.Core;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Events;
 
 namespace FPS.Control
 {
@@ -7,8 +9,10 @@ namespace FPS.Control
     {
         [SerializeField] float chaseRange = 10f;
         [SerializeField] float attackRange = 2f;
+        [SerializeField] float hitRange = 3f;
         [SerializeField] float rotationSpeed = 10f;
         [SerializeField] float attackDamage = 30f;
+        [SerializeField] UnityEvent onHit;
         NavMeshAgent agent;
         GameObject player;
         Animator animator;
@@ -85,9 +89,10 @@ namespace FPS.Control
         // Called in Unity Events
         void Hit()
         {
-            if (PlayerInRange(attackRange))
+            if (PlayerInRange(hitRange))
             {
                 player.GetComponent<Health>().TakeDamage(attackDamage);
+                onHit?.Invoke();
             }
         }
 

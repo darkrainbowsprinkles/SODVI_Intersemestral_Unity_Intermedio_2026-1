@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using FPS.Core;
 using UnityEngine;
 using UnityEngine.Events;
 

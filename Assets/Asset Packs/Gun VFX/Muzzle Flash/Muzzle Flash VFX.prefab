@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4977485751071522}
   - component: {fileID: 198719912503724044}
   - component: {fileID: 199226664080650972}
-  - component: {fileID: -7895516020038202539}
+  - component: {fileID: 3992641487725290020}
   m_Layer: 0
   m_Name: Muzzle Flash VFX
   m_TagString: Untagged
@@ -4850,7 +4850,7 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
---- !u!82 &-7895516020038202539
+--- !u!82 &3992641487725290020
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4861,7 +4861,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 94fc62564eabf2e429355affe6bee585, type: 3}
+  m_Resource: {fileID: 8300000, guid: 2203773368e4340d98c114f55c2dd7fd, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -4907,7 +4907,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.6
       inSlope: 0
       outSlope: 0
       tangentMode: 0

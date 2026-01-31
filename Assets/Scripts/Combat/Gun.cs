@@ -1,3 +1,4 @@
+using FPS.Core;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace FPS.Combat
 
         public void Fire(float damage, float range)
         {
-            Instantiate(muzzleFlashEffect, muzzle);
+            Instantiate(muzzleFlashEffect, muzzle.transform.position, Quaternion.identity);
 
             animator.Play("Gun Animation", 0, 0f);
 

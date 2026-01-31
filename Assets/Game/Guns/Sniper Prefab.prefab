@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Gun
   muzzle: {fileID: 6181047046417288825}
-  muzzleFlashEffect: {fileID: 1782395880954752, guid: 3dd9cf2e209c504448f1c4c6835675cf, type: 3}
+  muzzleFlashEffect: {fileID: 1782395880954752, guid: 0556d22506f8e03479a840c7d6a3ad53, type: 3}
   hitEffect: {fileID: 8051778499957098049, guid: 0c769bb3ec683374fa5f0b109a5a2a6d, type: 3}
   hitLayers:
     serializedVersion: 2

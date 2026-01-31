@@ -105,17 +105,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   movementSpeed: 3
-  sprintMultiplier: 2
+  sprintMultiplier: 1.5
   jumpForce: 3
   gunContainer: {fileID: 0}
-  defaultGunSO: {fileID: 11400000, guid: 40c461234b1681a4bb199b9b9817b510, type: 2}
+  defaultGunSO: {fileID: 11400000, guid: 2cefdd0af9212ba4b9ca0d66e929080b, type: 2}
   ammoSlots:
   - ammoType: 0
-    ammoAmount: 20
+    ammoAmount: 0
   - ammoType: 1
-    ammoAmount: 30
+    ammoAmount: 0
   - ammoType: 2
-    ammoAmount: 10
+    ammoAmount: 0
   firstPersonCamera: {fileID: 0}
   gunCamera: {fileID: 0}
 --- !u!114 &3566640132112944225
@@ -131,6 +131,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   maxHealth: 400
+  onDamageTaken:
+    m_PersistentCalls:
+      m_Calls: []
   onDie:
     m_PersistentCalls:
       m_Calls:

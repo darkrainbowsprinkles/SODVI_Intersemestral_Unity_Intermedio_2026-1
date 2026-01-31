@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using FPS.Combat;
+using FPS.Core;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.InputSystem;
