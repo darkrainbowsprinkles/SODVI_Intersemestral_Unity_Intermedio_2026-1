@@ -155,7 +155,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7093515563831212776}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0.06723731, y: 0.54723644, z: -0.04416585, w: 0.8331031}
   m_LocalPosition: {x: 0, y: 0.51, z: 0.0020141602}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -669,6 +669,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 351932536689660418}
     - target: {fileID: 5782832658073683088, guid: cbb4c0dd00af4a64d983aee26d419110, type: 3}
+      propertyPath: cameraNoise
+      value: 
+      objectReference: {fileID: 2861931467047104983}
+    - target: {fileID: 5782832658073683088, guid: cbb4c0dd00af4a64d983aee26d419110, type: 3}
       propertyPath: gunContainer
       value: 
       objectReference: {fileID: 3579027232116946149}
@@ -819,19 +823,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.8331031
       objectReference: {fileID: 0}
     - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.06723731
       objectReference: {fileID: 0}
     - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.54723644
       objectReference: {fileID: 0}
     - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.04416585
       objectReference: {fileID: 0}
     - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -870,6 +874,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
+--- !u!114 &2861931467047104983 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6900395188175313251, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 8679772786691664052}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
 --- !u!114 &2903831414115133112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5780585718420606476, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}

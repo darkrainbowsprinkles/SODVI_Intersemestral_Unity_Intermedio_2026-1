@@ -10,14 +10,23 @@ namespace FPS.Control
 {
     public class PlayerController : MonoBehaviour
     {
+        [Header("Movement")]
         [SerializeField] float movementSpeed = 3f;
         [SerializeField] float sprintMultiplier = 2f;
         [SerializeField] float jumpForce = 3f;
+
+        [Header("Gun Settings")]
         [SerializeField] Transform gunContainer;
         [SerializeField] GunSO defaultGunSO;
         [SerializeField] AmmoSlot[] ammoSlots;
+
+        [Header("Cameras")]
         [SerializeField] CinemachineCamera firstPersonCamera;
         [SerializeField] Camera gunCamera;
+        [SerializeField] CinemachineBasicMultiChannelPerlin cameraNoise;
+        [SerializeField] float walkNoiseFrequency = 0.02f;
+        [SerializeField] float sprintNoiseFrequency = 0.04f;
+        
         PlayerInput playerInput;
         CharacterController controller;
         Health health;
@@ -222,15 +231,29 @@ namespace FPS.Control
         void HandleMovement()
         {
             InputAction sprintAction = playerInput.actions["Sprint"];
+            Vector2 movementValue = playerInput.actions["Movement"].ReadValue<Vector2>();
+
             float speed = movementSpeed;
 
-            if (sprintAction.IsPressed())
+            if (movementValue.magnitude > 0)
             {
-                speed = movementSpeed * sprintMultiplier;
+                if (sprintAction.IsPressed())
+                {
+                    speed = movementSpeed * sprintMultiplier;
+                    cameraNoise.FrequencyGain = sprintNoiseFrequency;
+                }
+                else
+                {
+                    cameraNoise.FrequencyGain = walkNoiseFrequency;
+                }
+            }
+            else
+            {
+                cameraNoise.FrequencyGain = 0f;
             }
 
             Vector3 gravity = Vector3.up * verticalVelocity;
-            Vector3 movementMotion = CalculateMovement() * speed;
+            Vector3 movementMotion = CalculateMovement(movementValue) * speed;
             controller.Move((gravity + movementMotion) * Time.deltaTime);
         }
 
@@ -285,10 +308,8 @@ namespace FPS.Control
             AdjustAmmo(currentGunSO.GetAmmoType(), -1);
         }
 
-        Vector3 CalculateMovement()
+        Vector3 CalculateMovement(Vector2 movementValue)
         {
-            Vector2 movementValue = playerInput.actions["Movement"].ReadValue<Vector2>();
-            
             Vector3 right = (Camera.main.transform.right * movementValue.x).normalized;
             right.y = 0f;
 
