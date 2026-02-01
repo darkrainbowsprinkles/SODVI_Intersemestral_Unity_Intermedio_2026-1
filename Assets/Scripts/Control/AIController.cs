@@ -1,29 +1,29 @@
 using FPS.Core;
+using FPS.Movement;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.Events;
 
 namespace FPS.Control
 {
     public class AIController : MonoBehaviour
     {
+        [SerializeField, Range(0f, 1f)] float chaseSpeedFraction = 1f;
         [SerializeField] float chaseRange = 10f;
         [SerializeField] float attackRange = 2f;
         [SerializeField] float hitRange = 3f;
-        [SerializeField] float rotationSpeed = 10f;
         [SerializeField] float attackDamage = 30f;
         [SerializeField] UnityEvent onHit;
-        NavMeshAgent agent;
-        GameObject player;
-        Animator animator;
+        Mover mover;
         Health health;
+        Animator animator;
+        GameObject player;
 
         void Awake()
         {
-            agent = GetComponent<NavMeshAgent>();
-            player = GameObject.FindWithTag("Player");
-            animator = GetComponent<Animator>();
+            mover = GetComponent<Mover>();
             health = GetComponent<Health>();
+            animator = GetComponent<Animator>();
+            player = GameObject.FindWithTag("Player");
         }
 
         void Update()
@@ -43,47 +43,26 @@ namespace FPS.Control
             }
             else
             {
-                agent.isStopped = true;
+                mover.Stop();
             }
-
-            UpdateBlendTree();
         }
 
         void ChaseBehavior()
         {
-            agent.isStopped = false;
-            agent.SetDestination(player.transform.position);
+            mover.MoveTo(player.transform.position, chaseSpeedFraction);
             animator.ResetTrigger("attack");
         }
 
         void AttackBehavior()
         {
-            agent.isStopped = true;
+            mover.Stop();
             animator.SetTrigger("attack");
-            LookAtPlayer();
+            mover.LookAt(player);
         }
 
         bool PlayerInRange(float range)
         {
             return Vector3.Distance(transform.position, player.transform.position) <= range;
-        }
-
-        void LookAtPlayer()
-        {
-            Vector3 lookDirection = player.transform.position - transform.position;
-            lookDirection.y = 0f;
-
-            if (lookDirection != Vector3.zero)
-            {
-                Quaternion lookRotation = Quaternion.LookRotation(lookDirection);
-                transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
-            }
-        }
-
-        void UpdateBlendTree()
-        {
-            float velocity = transform.InverseTransformDirection(agent.velocity).magnitude;
-            animator.SetFloat("movementSpeed", velocity, 0.1f, Time.deltaTime);
         }
 
         // Called in Unity Events

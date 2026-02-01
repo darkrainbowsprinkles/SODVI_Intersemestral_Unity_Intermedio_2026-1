@@ -11,8 +11,10 @@ GameObject:
   - component: {fileID: 4961530059281911541}
   - component: {fileID: 3958949595079590045}
   - component: {fileID: 8832848301888932222}
-  - component: {fileID: 5782832658073683088}
+  - component: {fileID: 1717648408461817244}
   - component: {fileID: 3566640132112944225}
+  - component: {fileID: 7380796800156445492}
+  - component: {fileID: 5782832658073683088}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -36,6 +38,7 @@ Transform:
   - {fileID: 4529879993550076896}
   - {fileID: 4926989195316719068}
   - {fileID: 1860281593651418493}
+  - {fileID: 1292931143314584374}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3958949595079590045
@@ -93,7 +96,7 @@ CharacterController:
   m_SkinWidth: 0.05
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5782832658073683088
+--- !u!114 &1717648408461817244
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,43 +105,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 3275735047822897667}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46dcd0589e98fd04ca87f4b447b99858, type: 3}
+  m_Script: {fileID: 11500000, guid: 799042ec6245e6c48bbbb4a3632b7ae3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  movementSpeed: 3
-  sprintMultiplier: 1.5
-  jumpForce: 3
-  gunContainer: {fileID: 0}
-  defaultGunSO: {fileID: 11400000, guid: 2cefdd0af9212ba4b9ca0d66e929080b, type: 2}
-  ammoSlots:
-  - ammoType: 0
-    ammoAmount: 0
-  - ammoType: 1
-    ammoAmount: 0
-  - ammoType: 2
-    ammoAmount: 0
-  firstPersonCamera: {fileID: 0}
-  gunCamera: {fileID: 0}
-  cameraNoise: {fileID: 0}
-  walkNoiseFrequency: 0.02
-  sprintNoiseFrequency: 0.04
-  walkStepSpeed: 0.6
-  sprintStepSpeed: 0.4
-  onFootstep:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1640231462113510460}
-        m_TargetAssemblyTypeName: FPS.Audio.FootstepsPlayer, Assembly-CSharp
-        m_MethodName: PlayFootstep
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+  m_EditorClassIdentifier: Assembly-CSharp::FPS.Movement.Mover
+  maxSpeed: 3.5
+  rotationSpeed: 10
 --- !u!114 &3566640132112944225
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170,11 +141,62 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 353085291852222491}
         m_TargetAssemblyTypeName: Unity.Cinemachine.CinemachineInputAxisController,
           Unity.Cinemachine
         m_MethodName: set_enabled
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7380796800156445492
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275735047822897667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c73269629838a0d4098775cfb9919b66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FPS.Combat.Fighter
+  gunContainer: {fileID: 2090039890278351430}
+  defaultGunSO: {fileID: 11400000, guid: 2cefdd0af9212ba4b9ca0d66e929080b, type: 2}
+  firstPersonCamera: {fileID: 3996347474180194399}
+  gunCamera: {fileID: 2902643343584240801}
+--- !u!114 &5782832658073683088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3275735047822897667}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46dcd0589e98fd04ca87f4b447b99858, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+  jumpForce: 3
+  walkSpeedFraction: 0.7
+  sprintSpeedFraction: 1
+  cameraNoise: {fileID: 800952419552675700}
+  walkNoiseFrequency: 0.02
+  sprintNoiseFrequency: 0.04
+  walkStepDelay: 0.8
+  sprintStepDelay: 0.4
+  onFootstep:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1640231462113510460}
+        m_TargetAssemblyTypeName: FPS.Audio.FootstepsPlayer, Assembly-CSharp
+        m_MethodName: PlayFootstep
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -438,7 +460,7 @@ GameObject:
   - component: {fileID: 4648946165511074388}
   - component: {fileID: 5820524628459670984}
   m_Layer: 0
-  m_Name: Capsule
+  m_Name: Mesh
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -516,3 +538,124 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1001 &6115515723816918551
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4961530059281911541}
+    m_Modifications:
+    - target: {fileID: 2598186313881288926, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_Name
+      value: Gun Container
+      objectReference: {fileID: 0}
+    - target: {fileID: 4861371049421988401, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_Name
+      value: First Person Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0019989014
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.695924
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0053030374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7180751
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.005471832
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322222773496959718, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: PanAxis.Value
+      value: 91.795
+      objectReference: {fileID: 0}
+    - target: {fileID: 6322222773496959718, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: TiltAxis.Value
+      value: -0.87318665
+      objectReference: {fileID: 0}
+    - target: {fileID: 7181919779490766408, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+      propertyPath: Target.TrackingTarget
+      value: 
+      objectReference: {fileID: 4926989195316719068}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+--- !u!114 &353085291852222491 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5780585718420606476, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineInputAxisController
+--- !u!114 &800952419552675700 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6900395188175313251, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+--- !u!4 &1292931143314584374 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4985422252978892065, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2090039890278351430 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5323251541180439633, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!20 &2902643343584240801 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8977626359355538102, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &3996347474180194399 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7181919779490766408, guid: 80b8a844b97cf934cbcbe47e471f4bfd, type: 3}
+  m_PrefabInstance: {fileID: 6115515723816918551}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera

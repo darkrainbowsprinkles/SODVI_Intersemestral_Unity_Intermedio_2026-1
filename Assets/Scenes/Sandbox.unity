@@ -241,6 +241,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 509481722744720948, guid: 20ad56fdcfe0a5441a6eab473d267853, type: 3}
   m_PrefabInstance: {fileID: 557627252}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &205534358 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4316682729219171789, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
+  m_PrefabInstance: {fileID: 3820244776044283636}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineInputAxisController
 --- !u!1001 &273176844
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -566,7 +577,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 1598627731}
+      - m_Target: {fileID: 205534358}
         m_TargetAssemblyTypeName: Unity.Cinemachine.CinemachineInputAxisController,
           Unity.Cinemachine
         m_MethodName: set_enabled
@@ -1043,17 +1054,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1580069800}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1598627731 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2903831414115133112, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
-  m_PrefabInstance: {fileID: 3820244776044283636}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 89875cdc57c54474a8a74efd9b2a3b5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineInputAxisController
 --- !u!1001 &1629964463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1431,6 +1431,22 @@ PrefabInstance:
     - target: {fileID: 7564153591710335893, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
       propertyPath: m_LocalPosition.z
       value: 0.002
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564153591710335893, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.695924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564153591710335893, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.0053030374
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564153591710335893, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7180751
+      objectReference: {fileID: 0}
+    - target: {fileID: 7564153591710335893, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.005471832
       objectReference: {fileID: 0}
     - target: {fileID: 7637046656593493192, guid: 8af58de9596543d42bc99a9e6989041d, type: 3}
       propertyPath: m_Name

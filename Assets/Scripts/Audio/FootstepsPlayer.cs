@@ -14,7 +14,12 @@ namespace FPS.Audio
         // Called in Unity Events
         public void PlayFootstep()
         {
-            audioSource.PlayOneShot(GetFootstepClip());
+            AudioClip clip = GetFootstepClip();
+
+            if (clip != null)
+            {
+                audioSource.PlayOneShot(GetFootstepClip());
+            }
         }
 
         [System.Serializable]
@@ -67,7 +72,7 @@ namespace FPS.Audio
         {
             int layerIndex = GetTerrainLayerAtPosition();
 
-            if (layerIndex >= 0)
+            if (layerIndex >= 0 && terrainClipsLookup.ContainsKey(layerIndex))
             {
                 AudioClip[] clips = terrainClipsLookup[layerIndex];
                 return clips[Random.Range(0, clips.Length)];
@@ -75,7 +80,7 @@ namespace FPS.Audio
 
             Material material = GetMaterialAtPosition();
 
-            if (material != null)
+            if (material != null && materialClipsLookup.ContainsKey(material))
             {
                 AudioClip[] clips = materialClipsLookup[material];
                 return clips[Random.Range(0, clips.Length)];

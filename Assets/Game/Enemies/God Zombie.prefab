@@ -563,10 +563,13 @@ PrefabInstance:
       addedObject: {fileID: 8699436308328893170}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aedf2c7562f1e53499a566c51e81349b, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 7402501863749481268}
+      addedObject: {fileID: 9165008004472240765}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aedf2c7562f1e53499a566c51e81349b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4159991188499386349}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: aedf2c7562f1e53499a566c51e81349b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7402501863749481268}
   m_SourcePrefab: {fileID: 100100000, guid: aedf2c7562f1e53499a566c51e81349b, type: 3}
 --- !u!4 &8409751074794976755 stripped
 Transform:
@@ -623,7 +626,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7402501863749481268
+--- !u!114 &9165008004472240765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -632,17 +635,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 9222985726762512201}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e07499f8394e1346bae7e70f6cb73f5, type: 3}
+  m_Script: {fileID: 11500000, guid: 799042ec6245e6c48bbbb4a3632b7ae3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AIController
-  chaseRange: 30
-  attackRange: 2
-  hitRange: 4
+  m_EditorClassIdentifier: Assembly-CSharp::FPS.Movement.Mover
+  maxSpeed: 5
   rotationSpeed: 10
-  attackDamage: 100
-  onHit:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &4159991188499386349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -686,3 +683,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &7402501863749481268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9222985726762512201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e07499f8394e1346bae7e70f6cb73f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AIController
+  chaseSpeedFraction: 1
+  chaseRange: 30
+  attackRange: 2
+  hitRange: 4
+  attackDamage: 100
+  onHit:
+    m_PersistentCalls:
+      m_Calls: []

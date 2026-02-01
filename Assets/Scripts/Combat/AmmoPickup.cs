@@ -1,4 +1,3 @@
-using FPS.Control;
 using UnityEngine;
 
 namespace FPS.Combat
@@ -10,7 +9,7 @@ namespace FPS.Combat
 
         protected override void OnPickup(GameObject player)
         {
-            player.GetComponent<PlayerController>().AdjustAmmo(ammoType, number);
+            player.GetComponent<Fighter>().AdjustAmmo(ammoType, number);
         }
     }
 }

@@ -262,7 +262,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
   NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   PivotOffset: {x: 0, y: 0, z: 0}
-  AmplitudeGain: 2.5
+  AmplitudeGain: 2.3
   FrequencyGain: 0
   m_NoiseOffsets: {x: -667.0294, y: 635.8359, z: 912.1981}
 --- !u!1 &5256063091385885705

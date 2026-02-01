@@ -1,5 +1,4 @@
 using FPS.Combat;
-using FPS.Control;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,7 +13,7 @@ namespace FPS.UI
         [SerializeField] RawImage crosshairImage;
         [SerializeField] RawImage scopeImage;
         [SerializeField] AmmoIcon[] ammoIcons;
-        PlayerController playerController;
+        Fighter fighter;
 
         [System.Serializable]
         class AmmoIcon
@@ -26,7 +25,7 @@ namespace FPS.UI
         void Awake()
         {
             GameObject player = GameObject.FindWithTag("Player");
-            playerController = player.GetComponent<PlayerController>();
+            fighter = player.GetComponent<Fighter>();
         }
 
         void Start()
@@ -37,7 +36,7 @@ namespace FPS.UI
 
         void Update()
         {
-            GunSO currentGunSO = playerController.GetCurrentGunSO();
+            GunSO currentGunSO = fighter.GetCurrentGunSO();
 
             if (currentGunSO == null)
             {
@@ -51,32 +50,32 @@ namespace FPS.UI
                 return;
             }
 
-            scopeImage.enabled = playerController.IsZooming();
-            crosshairImage.enabled = !playerController.IsZooming();
+            scopeImage.enabled = fighter.IsZooming();
+            crosshairImage.enabled = !fighter.IsZooming();
         }
 
         void OnEnable()
         {
-            playerController.OnAmmoAdjusted += OnAmmoAdjusted;
-            playerController.OnGunEquipped += OnGunEquipped;
+            fighter.OnAmmoAdjusted += OnAmmoAdjusted;
+            fighter.OnGunEquipped += OnGunEquipped;
         }
 
         void OnDisable()
         {
-            playerController.OnAmmoAdjusted -= OnAmmoAdjusted;
-            playerController.OnGunEquipped -= OnGunEquipped;
+            fighter.OnAmmoAdjusted -= OnAmmoAdjusted;
+            fighter.OnGunEquipped -= OnGunEquipped;
         }
 
         void OnAmmoAdjusted()
         {
-            GunSO currentGunSO = playerController.GetCurrentGunSO();
-            int currentAmmo = playerController.GetAmmo(currentGunSO.GetAmmoType());
+            GunSO currentGunSO = fighter.GetCurrentGunSO();
+            int currentAmmo = fighter.GetAmmo(currentGunSO.GetAmmoType());
             ammoText.text = currentAmmo.ToString();
         }
 
         void OnGunEquipped()
         {
-            GunSO currentGunSO = playerController.GetCurrentGunSO();
+            GunSO currentGunSO = fighter.GetCurrentGunSO();
             gunIconImage.sprite = currentGunSO.GetGunIcon();
             ammoIconImage.sprite = GetAmmoIcon(currentGunSO.GetAmmoType());
             crosshairImage.texture = currentGunSO.GetCrosshair();
