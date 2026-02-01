@@ -4,6 +4,7 @@ using FPS.Combat;
 using FPS.Core;
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 namespace FPS.Control
@@ -26,7 +27,12 @@ namespace FPS.Control
         [SerializeField] CinemachineBasicMultiChannelPerlin cameraNoise;
         [SerializeField] float walkNoiseFrequency = 0.02f;
         [SerializeField] float sprintNoiseFrequency = 0.04f;
-        
+
+        [Header("Footsteps")]
+        [SerializeField] float walkStepSpeed = 0.6f;
+        [SerializeField] float sprintStepSpeed = 0.4f;
+        [SerializeField] UnityEvent onFootstep;
+
         PlayerInput playerInput;
         CharacterController controller;
         Health health;
@@ -36,6 +42,7 @@ namespace FPS.Control
         float verticalVelocity;
         float defaultFieldOfView;
         float timeSinceLastShot = Mathf.Infinity;
+        float timeSinceLastStep = Mathf.Infinity;
         bool isZooming = false;
         Dictionary<AmmoType, int> ammoLookup;
         AggroGroup aggroGroup;
@@ -81,7 +88,7 @@ namespace FPS.Control
             return ammoLookup[ammoType];
         }
 
-        [System.Serializable]
+        [Serializable]
         class AmmoSlot
         {
             public AmmoType ammoType;
@@ -128,6 +135,8 @@ namespace FPS.Control
             }
 
             timeSinceLastShot += Time.deltaTime;
+            timeSinceLastStep += Time.deltaTime;
+
             CalculateVerticalVelocity();
             HandleMovement();
             HandleJumping();
@@ -234,6 +243,7 @@ namespace FPS.Control
             Vector2 movementValue = playerInput.actions["Movement"].ReadValue<Vector2>();
 
             float speed = movementSpeed;
+            float stepSpeed = walkStepSpeed;
 
             if (movementValue.magnitude > 0)
             {
@@ -241,10 +251,17 @@ namespace FPS.Control
                 {
                     speed = movementSpeed * sprintMultiplier;
                     cameraNoise.FrequencyGain = sprintNoiseFrequency;
+                    stepSpeed = sprintStepSpeed;
                 }
                 else
                 {
                     cameraNoise.FrequencyGain = walkNoiseFrequency;
+                }
+
+                if (controller.isGrounded && timeSinceLastStep > stepSpeed)
+                {
+                    timeSinceLastStep = 0f;
+                    onFootstep?.Invoke();
                 }
             }
             else
